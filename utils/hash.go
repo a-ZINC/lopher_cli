@@ -4,20 +4,21 @@ import (
 	"crypto/md5"
 	"crypto/sha256"
 	"crypto/sha512"
+	"encoding/hex"
 	"slices"
 )
 
-func Hash(alg string, data string) string {
+func Hash(alg string, data []byte) string {
 	switch alg {
 	case "sha256":
-		buffer := sha256.Sum256([]byte(data))
-		return string(buffer[:])
+		buffer := sha256.Sum256(data)
+		return hex.EncodeToString(buffer[:])
 	case "sha512":
-		buffer := sha512.Sum512([]byte(data))
-		return string(buffer[:])
+		buffer := sha512.Sum512(data)
+		return hex.EncodeToString(buffer[:])
 	case "md5":
-		buffer := md5.Sum([]byte(data))
-		return string(buffer[:])
+		buffer := md5.Sum(data)
+		return hex.EncodeToString(buffer[:])
 	default:
 		return "sha256"
 	}
