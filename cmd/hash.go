@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"lopher/algo"
 	"lopher/log"
 	"lopher/utils"
 
@@ -32,6 +33,8 @@ var hashCmd = &cobra.Command{
 		}
 		if !utils.Contains(allowedAlgorithms, alg) {
 			log.ErrorLogger.Printf("Invalid algorithm: %s\n", alg)
+			closestAlgo := algo.ClosestDistance(allowedAlgorithms, alg, 3)
+			log.WarnLogger.Printf("Did you mean %s?\n", closestAlgo)
 			return
 		}
 		hash := utils.Hash(alg, data)
